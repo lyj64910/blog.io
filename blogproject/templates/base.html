@@ -1,0 +1,105 @@
+<!Doctype html >
+<html lang="ko"></html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  
+<link href="https://fonts.googleapis.com/css?family=Song+Myung&display=swap&subset=korean" rel="stylesheet">
+
+<style>
+
+  *{margin:0;padding:0;}
+    ul,li{list-style:none;}
+    .slide{height:300px;overflow:hidden;}
+    .slide ul{width:calc(100% * 4);display:flex;animation:slide 8s infinite;} /* slide를 8초동안 진행하며 무한반복 함 */
+    .slide li{width:calc(100% / 4);height:300px;}
+    .slide li:nth-child(1){background:#ffa;}
+    .slide li:nth-child(2){background:#faa;}
+    .slide li:nth-child(3){background:#afa;}
+    .slide li:nth-child(4){background:#aaf;}
+    @keyframes slide {
+      0% {margin-left:0;} /* 0 ~ 10  : 정지 */
+      10% {margin-left:0;} /* 10 ~ 25 : 변이 */
+      25% {margin-left:-100%;} /* 25 ~ 35 : 정지 */
+      35% {margin-left:-100%;} /* 35 ~ 50 : 변이 */
+      50% {margin-left:-200%;}
+      60% {margin-left:-200%;}
+      75% {margin-left:-300%;}
+      85% {margin-left:-300%;}
+      100% {margin-left:0;}
+    }
+  
+</style>
+
+  
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" style="font-family: 'Nanum Gothic', sans-serif; margin-top: 0; " >
+    
+    <a class="navbar-brand" href="{% url 'home' %}" > 블로그</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            
+            {% if user.is_authenticated %}
+
+            <ul class="navbar-nav justify-content-end ">
+              <li  class="nav-link" style="color:white;"> 환영합니다.  　{{ user.username }} 님</li>
+              <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}"><li class="logoutuser" style="color:white;"> 　Logout　 
+                  <form id="logout" method="POST" action="{% url 'logout' %}">{% csrf_token %} </form></li></a>
+          </ul>
+
+          <ul class="navbar-nav justify-content-end ">
+              <li class="nav-item"  >
+              <a class="nav-link" href="{% url 'new' %}" style="color:white;" >글쓰기　</a>
+              </li>
+          </ul>
+
+            {% else %}
+            <ul class="navbar-nav justify-content-end ">
+              <li class="nav-item" >
+                  <a class="nav-link" href="{% url 'login' %}" style="color:white;">로그인</a>
+              </li> 
+              <li class="nav-item"   >
+                  <a class="nav-link" href="{% url 'signup' %}" style="color:white;">회원가입</a>
+              </li>
+              </ul>
+  
+             {% endif %}
+           </ul>
+              
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>  
+      <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+      <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
+      
+
+      <div class="slide">
+        <ul style="font-family: 'Song Myung', serif; font-size: 32px; text-align: center;">
+          <li ><br><br>조선의 궁궐에 당도한 것을 환영하오, 낯선이여. <br>나는 나의 훌륭한 백성들을 굽어살피는 깨우친 임금, 세종이오.</li>
+          <li><br><br><br>동지여, 우리는 상의해야 할 것이 많고 서로에게 얻을 수 있는 것이 많소.</li>
+          <li><br><br><br>안녕하시오? </li>
+          <li><br><br><br>가엾고 딱딱한 자로다! 이제 이 나라의 과학의 막강한 힘에 짓밟히고 말 것이거늘!</li>
+        </ul>
+      </div>
+    
+
+    </body>
+    
+    {% block content %}
+      {% endblock %}
